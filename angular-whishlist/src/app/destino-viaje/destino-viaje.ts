@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, HostBinding } from '@angular/core';
-import { DestinoViaje as DestinoViajeModel } from '../models/destino-viaje.models';
+import { Component, OnInit, Input, HostBinding, EventEmitter, Output } from '@angular/core';
+import { DestinoViaje as DestinoViajeModel } from '../models/destino-viaje.model';
 
 @Component({
   selector: 'app-destino-viaje',
@@ -10,7 +10,15 @@ import { DestinoViaje as DestinoViajeModel } from '../models/destino-viaje.model
 export class DestinoViaje implements OnInit {
   @Input() destino!: DestinoViajeModel;
   @HostBinding('attr.class') cssClass = 'col-md-4';
-  constructor() {}
+  @Output() clicked: EventEmitter<DestinoViajeModel>;
+
+  constructor() {
+    this.clicked = new EventEmitter();  }
 
   ngOnInit() {}
+
+  ir() {
+    this.clicked.emit(this.destino);
+    return false; 
+  }
 }
